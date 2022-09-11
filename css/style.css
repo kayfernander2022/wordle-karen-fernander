@@ -46,3 +46,15 @@ h1{
   color: black;
 
 }
+.keyboard{
+margin: 0 10px;
+
+}
+.keyboard-row{
+  display:flex;
+  width: 100;
+  margin: auto, 1fr, auto;
+  flex-wrap: wrap;
+}
+
+

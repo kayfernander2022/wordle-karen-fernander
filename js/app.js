@@ -15,26 +15,19 @@ console.log(keys);
 
 
 /*----------------------------- Event Listeners -----------------------------*/
-const firstEl = document.getElementById('row1');
-let count = 0;
-for(const child of firstEl.querySelectorAll('.tile'))
-{
-  child.innerText = count;
-  console.log(child.innerText);
-  count++;
-}
-console.log("First element childs " + firstEl.children.length);
-
-document.querySelectorAll('.row').forEach((row) => {
+const rowElNodes = document.querySelectorAll('.row').forEach((row) => {
   row.addEventListener('click', handleRowClick);
 });
+
 /*-------------------------------- Functions --------------------------------*/
 function handleRowClick(evt){
   console.log("Row clicked: " + evt.currentTarget.id);
-  
-  for(const child of evt.currentTarget.children)
+  let count = 0;
+  for(const child of evt.currentTarget.querySelectorAll('.tile'))
   {
+    child.innerText = count;
     console.log(child.innerText);
+    count++;
   }
 }
 function init() {

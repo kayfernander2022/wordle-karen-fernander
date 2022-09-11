@@ -44,11 +44,14 @@ body{
 }
 h1{
   color: black;
+  
 
 }
 .keyboard{
-margin: 0 10px;
-
+display:grid;
+justify-content: center;
+align-items: center;
+margin: 75px;
 }
 .keyboard-row{
   display:flex;

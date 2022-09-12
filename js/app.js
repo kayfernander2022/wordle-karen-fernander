@@ -3,8 +3,35 @@ const gameTheme =[]
 
 
 const keys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H','J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'enter'];
+let childEl = []; // Hold current tile elements of selected row
+let currentRow = 0; // Current row selected
+let currentColumn = 0; //Current column selected
+
 console.log(keys);
 
+const row1El = document.getElementById('row1');
+
+// Listen for key event to know what the user is entering
+window.addEventListener('keydown', keyEvt => {
+  //Check if have all 5 tile elements in row and if currentColumn is not more than allowed
+  if(childEl.length === 5 && currentColumn <=4)
+  {
+    // Check if user is backspace and column has value to remove
+    if(currentColumn >=0 && keyEvt.key === 'Backspace')
+    {
+      if(currentColumn !==0)
+      {currentColumn--;}
+      childEl[currentColumn].innerText = '';
+    }
+    else
+    {
+      // save key entered by user.  Need to check for chars not part of alphabet still.
+      childEl[currentColumn].innerText = keyEvt.key;
+      currentColumn++;
+    }
+    console.log(keyEvt);
+  }
+});
 
 
 //)    Define the required variables used to track the state of the game 
@@ -15,21 +42,43 @@ console.log(keys);
 
 
 /*----------------------------- Event Listeners -----------------------------*/
+
+//Add click event to all row elelments
 const rowElNodes = document.querySelectorAll('.row').forEach((row) => {
   row.addEventListener('click', handleRowClick);
 });
 
+
 /*-------------------------------- Functions --------------------------------*/
+
+//Function when row is clicked
 function handleRowClick(evt){
   console.log("Row clicked: " + evt.currentTarget.id);
-  let count = 0;
-  for(const child of evt.currentTarget.querySelectorAll('.tile'))
+
+  // Check that row does not have any filled columns
+  if(currentColumn ===0 || currentColumn === 5)
   {
-    child.innerText = count;
-    console.log(child.innerText);
-    count++;
+    // might use later
+    currentRow = evt.currentTarget.id.replace('row', '') - 1;
+    console.log(currentRow);
+
+    // Clear tile array to add new children
+    if(childEl.length > 0)
+    {
+      childEl = [];
+    }
+
+    //Add tile to array
+    for(const child of evt.currentTarget.querySelectorAll('.tile'))
+    {
+      childEl.push(child);
+    }
+
+    //Reset current column to 0;
+    currentColumn = 0;
   }
 }
+
 function init() {
 }
 
